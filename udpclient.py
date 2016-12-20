@@ -1,10 +1,12 @@
 #!/usr/bin/python
 
 import socket
+import sys
 
 UDP_IP = "192.168.178.27" #Zielip
 UDP_PORT = 1195
-MESSAGE = "quit" #Befehl
+data=sys.argv[1]
+MESSAGE = str(data) #Befehl
 
 print "UDP target IP:", UDP_IP
 print "UDP target port:", UDP_PORT
