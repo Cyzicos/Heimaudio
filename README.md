@@ -6,10 +6,12 @@ stream starten: "start" senden
 ansonsten: mplayer slave befehle senden
 
 
-nohup mplayer -input file=/home/pi/mplayerfifo -playlist /home/pi/swr1bw_mp3_m.m3u  >/dev/null &
-Befehl um Server zu starten:
-ssh pi@<IP> python /home/pi/udpServer.py
 
+Befehl um Server über ssh zu starten:
+ssh pi@<IP> python /home/pi/udpServer.py
+Befehl in /etc/rc.local einfügen:
+/usr/bin/python /home/pi/udpServer.py
+davor: chmod a+x /home/pi/udpServer.py
 ps -ef | grep python
 
 TODO:
