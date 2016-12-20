@@ -10,5 +10,7 @@ nohup mplayer -input file=/home/pi/mplayerfifo -playlist /home/pi/swr1bw_mp3_m.m
 Befehl um Server zu starten:
 ssh pi@<IP> python /home/pi/udpServer.py
 
+TODO:
+Mehrmals drücken auf Fernbedienung egal
 
 
