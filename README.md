@@ -12,10 +12,15 @@ Fifo datei anlegen: /home/pi/mplayerfifo
 Befehl um Server über ssh zu starten:
 ssh pi@<IP> python /home/pi/udpServer.py
 
+
 Befehl in /etc/rc.local einfügen:
 /usr/bin/python /home/pi/udpserver.py &
 davor: chmod a+x /home/pi/udpserver.py
-Test ob es geht: ps -ef | grep python
+Test ob Python Programm läuft: ps -ef | grep python
+pidof "Programmname" #Findet Prozess eines programmes
+
+Shairplay-sync: shairport-sync -a "TestAirplay"
+
 
 
 
