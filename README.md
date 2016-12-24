@@ -22,7 +22,7 @@ pidof "Programmname" #Findet Prozess eines programmes
 Shairplay-sync: shairport-sync -a "TestAirplay"
 
 
-
+Mplayer Fixing hifiberry: https://support.hifiberry.com/hc/en-us/community/posts/201841301-No-sound-out-of-hifiberry
 
 TODO:
 Mehrmals drücken auf Fernbedienung egal
