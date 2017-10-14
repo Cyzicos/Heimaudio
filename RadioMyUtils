@@ -1,0 +1,74 @@
+##############################################
+# $Id: myUtilsTemplate.pm 7570 2015-01-14 18:31:44Z rudolfkoenig $
+#
+# Save this file as 99_myUtils.pm, and create your own functions in the new
+# file. They are then available in every Perl expression.
+
+package main;
+
+use strict;
+use warnings;
+use POSIX;
+
+sub myUtils_Initialize($$)
+{
+  my ($hash) = @_;
+}
+
+# Enter you functions below _this_ line.
+
+#Macht das Radio an durch den 1. Knopf und macht das disablen rückgängig
+sub startRadio(){
+fhem("set radioDisabled off");
+if(Value("radioOnOff") eq "off" ){
+fhem("set radioOnOff on");
+#my($systemcall)=("python /opt/fhem/udpclient.py start");
+my($systemcall)=("python /opt/fhem/radioAn.py");
+system($systemcall);
+}
+}
+ sub startRadioIfNotDisabled(){
+ if(Value("radioDisabled") eq "off" ){
+  
+ }
+ }
+
+
+
+#Wird durch den 2. Knopf ausgelöst und verhindert dass der Melder das radio wieder anmacht
+sub quitRadio(){
+fhem("set radioOnOff off");
+fhem("set radioDisabled on");
+my($systemcall)=("python /opt/fhem/radioAus.py");
+#my($systemcall)=("python /opt/fhem/udpclient.py quit");
+system($systemcall);
+}
+
+#Wird durch den at Befehl aufgerufen, weil 30min keine Bewegung das Radio nicht ausmachen soll
+sub quitRadioNoDisable(){
+if(Value("radioOnOff") eq "on"){
+fhem(quitRadio());
+fhem("set radioDisabled off");
+}
+}
+
+#Wird durch den Bewegungsmelder ausgelöst
+sub melderRadio(){
+ if(Value("radioOnOff") eq "off"){
+ my($sec,$min,$hour,$mday,$mon,$year,$wday,$yday,$isdst) =localtime(time);
+		
+		if($hour>4 && $hour<20 && Value("radioDisabled") eq "off" && Value("radioOnOff") eq "off" ){
+           startRadio();
+	}
+  }
+ if(Value("radioOnOff") eq "on"){
+  		if(not defined($defs{'radioTimer'})){
+		fhem("define radioTimer at +00:30:00 {quitRadioNoDisable()}");
+		}else{
+        fhem("set radioTimer modifyTimeSpec 00:45:00");
+		}
+  }
+
+}
+
+1;
